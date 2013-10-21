@@ -1,0 +1,84 @@
+<div class="container">
+	<div class="row visible-xs">
+		<div class="col-md-8 nav">
+		<h2 id="article-sub"><a href="/subs/<: $article.feed.id :>"><: $article.feed.name :></a></h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2 col-xs-6 nav">
+			 <a id="prev" class="btn btn-primary <: defined($prev) ? '' : 'disabled' :>" href="/article/<: $prev :>">&larr; Previous</a>
+		</div>
+		<div class="col-md-8 hidden-xs nav">
+		<h2 id="article-sub"><a href="/subs/<: $article.feed.id :>"><: $article.feed.name :></a></h2>
+		</div>
+		<div class="col-md-2 col-xs-6 nav">
+			<a id="next" class="btn btn-primary <: defined($next) ? '' : 'disabled' :>" href="/article/<: $next :>">Next &rarr;</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h4><a href="<:= $article.link :>" target="_blank"><:= $article.title :></a></h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8 col-xs-6">
+			<: $issued :>
+		</div>
+		<div class="col-md-4 col-xs-6 markings">
+			<div class="btn-group" data-toggle="buttons">
+			  <label class="btn btn-default <: $article.read ? 'active' : '' :>" id="lbl-read">
+				 <input type="checkbox" id="read" value="<: $article.id :>" checked="<: $article.read ? 'checked' : '' :>"><span><: $article.read ? 'Read' : 'New' :></span>
+			  </label>
+			  <label class="btn btn-default <: $article.favorite ? 'active' : '' :>" id="lbl-fav">
+				 <input type="checkbox" id="favorite" value="<: $article.id :>" checked="<: $article.favorite ? 'checked' : '' :>"><i class="icon-star<: $article.favorite ? '' : '-empty' :>"></i>
+			  </label>
+			</div>
+		</div>
+	</div>
+	<br />
+	<div class="container" id="content">
+		<: $article.description | raw :>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-md-2 col-xs-6 nav">
+			 <a class="btn btn-primary <: defined($prev) ? '' : 'disabled' :>" href="/article/<: $prev :>">&larr; Previous</a>
+		</div>
+		<div class="col-md-8 hidden-xs nav">
+		<h2 id="article-sub"><a href="/subs/<: $article.feed.id :>"><: $article.feed.name :></a></h2>
+		</div>
+		<div class="col-md-2 col-xs-6 nav">
+			<a class="btn btn-primary <: defined($next) ? '' : 'disabled' :>" href="/article/<: $next :>">Next &rarr;</a>
+		</div>
+	</div>
+	<div class="row visible-xs">
+		<div class="col-md-8 nav">
+		<h2 id="article-sub"><a href="/subs/<: $article.feed.id :>"><: $article.feed.name :></a></h2>
+		</div>
+	</div>
+	<br />
+	<br />
+	<div class="row">
+		<div class="col-xs-6 nav">
+			<a class="btn btn-default" href="/logout">Logout</a>
+		</div>
+		<div class="col-xs-6 nav">
+			<a class="btn btn-default" href="/" >Feeds</a>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).on('keypress',null,"right j",function(e) {
+	if(! $("#next").hasClass('disabled')) {
+		window.location.href = $("#next").attr("href");
+	}
+});
+$(document).on('keypress',null,"left k",function(e) {
+	if(! $("#prev").hasClass('disabled')) {
+		window.location.href = $("#prev").attr("href");
+	}
+});
+$(document).on('keypress',null,"m",function(e) {
+	$("#read").click();
+});
+</script>

@@ -1,0 +1,17 @@
+Get Dependancies,manifests,etc sorted.
+Tests!!
+Separate config file for username/password (exposed if error in development env.).
+recent read articles on main page
+special feeds (all,starred)
+able to switch to view read articles in feeds
+
+caraosel so we can preload next article
+   - mozilla brick?
+   - mark read on that page being viewed in js.
+
+DONE - Fix InflateColumn::DateTime::Duration to register on interval data types
+DONE - keyboard navigation can go past the end
+DONE - be able to star, mark read
+DONE - _inflate issue with columns that are "objects"
+DONE - create dbic role or extension
+DONE - web interface`

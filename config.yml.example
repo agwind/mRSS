@@ -1,0 +1,50 @@
+# This is the main configuration file of your Dancer app
+# env-related settings should go to environments/$env.yml
+# all the settings in this file will be loaded at Dancer's startup.
+
+# Your application's name
+appname: "mRSS::App"
+
+# The default layout to use for your application (located in
+# views/layouts/main.tt)
+#layout:
+#layout: "main"
+
+# when the charset is set to UTF-8 Dancer will handle for you
+# all the magic of encoding and decoding. You should not care
+# about unicode within your app when this setting is set (recommended).
+charset: "UTF-8"
+
+# template engine
+# simple: default and very basic template engine
+# template_toolkit: TT
+# template: "tenjin"
+
+template: "xslate"
+engines:
+  xslate:
+    cache_dir: .xslate_cache/
+    cache: 1
+    extension: tx
+    header:
+      - layouts/header.tx
+    footer:
+      - layouts/footer.tx
+
+# template: "template_toolkit"
+# engines:
+#   template_toolkit:
+#     start_tag: '[%'
+#     end_tag:   '%]'
+
+session: YAML
+setting session_secure: 1
+
+db_cfg_file: 'dbic.conf'
+
+plugins:
+  'Ajax':
+    content_type: 'application/json'
+
+users:
+  <username>: '<password>' 

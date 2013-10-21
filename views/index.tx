@@ -1,0 +1,15 @@
+   <div class="container">
+		<div class="row">
+			Feeds - <: $user :>
+		</div>
+		<div class="row">
+			<ul class="list-group">
+: for $feeds -> $feed {
+				<li class="list-group-item"><a href="/subs/<: $feed.id :>"><: $feed.name :></a> ( <span id="unread-<: $feed.id :>"><: $feed.unread :></span> / <span id="count-<: $feed.id :>"><: $feed.count :></span> ) <a class="btn-default feed" id="<: $feed.id :>" href="#"><i id="icon-<: $feed.id :>" class="icon-refresh"></i></a></li>
+: }
+			</ul>
+		</div>
+		<div class="row">
+			<a href="/logout">Logout</a>
+		</div>
+	</div>

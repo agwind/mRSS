@@ -2,6 +2,8 @@ use Test::More tests => 2;
 use strict;
 use warnings;
 
+use lib 'lib';
+
 # the order is important
 use mRSS::App;
 use Dancer::Test;

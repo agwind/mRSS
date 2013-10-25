@@ -1,8 +1,10 @@
-use Test::More tests => 53; 
+use Test::Most tests => 53, 'die';
 use Test::Deep;
 use strict;
 use warnings;
 use File::Temp;
+
+use lib 'lib';
 
 my $dbcfg = File::Temp->new( UNLINK => 1, SUFFIX=>'.conf');
 my $db = File::Temp->new( UNLINK => 1, SUFFIX=>'.db');

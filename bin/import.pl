@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use Data::Dumper;
 
+use lib 'lib';
+
 use XML::Smart;
 use Config::Any;
 use mRSS::Feed;

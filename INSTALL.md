@@ -42,7 +42,7 @@ If you're using PostgreSQL:
 
 Do these steps as your user (rss).  Eventually I'll update the correct build files and all you'll need to do is cpanm `<this repository url>`
 
-Let's upgrade cpanm (1.701 is current).
+Let's upgrade cpanm as my system cpanm is behind by a few versions
 
     $ cpanm --self-upgradde
     $ hash -r

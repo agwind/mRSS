@@ -40,7 +40,7 @@ If you're using PostgreSQL:
 
     # apt-get install libpq-dev
 
-Do these steps as your user (rss).  Eventually I'll update the correct build files and all you'll need to do is cpanm <this repository url>
+Do these steps as your user (rss).  Eventually I'll update the correct build files and all you'll need to do is cpanm `<this repository url>`
 
 Let's upgrade cpanm (1.701 is current).
 

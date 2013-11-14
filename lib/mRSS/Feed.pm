@@ -137,10 +137,9 @@ sub retrieve {
 	$feed = XML::Feed->parse(\$feed);
 	foreach my $item ($feed->items) {
 		my $article;
+		if (!defined($item->title) or !defined($item->link)) { next; }
 		eval {
-			if(defined($item->title) && defined($item->link)) {
-				$article = mRSS::Article->find({ feed => $self->id, title => $item->title, link => $item->link });
-			}
+			$article = mRSS::Article->find({ feed => $self->id, title => $item->title, link => $item->link });
 		};
 		if(!defined($article)) {
 			my $article_hash = {

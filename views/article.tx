@@ -30,14 +30,16 @@
 				 <input type="checkbox" id="read" value="<: $article.id :>" checked="<: $article.read ? 'checked' : '' :>"><span><: $article.read ? 'Read' : 'New' :></span>
 			  </label>
 			  <label class="btn btn-default <: $article.favorite ? 'active' : '' :>" id="lbl-fav">
-				 <input type="checkbox" id="favorite" value="<: $article.id :>" checked="<: $article.favorite ? 'checked' : '' :>"><i class="icon-star<: $article.favorite ? '' : '-empty' :>"></i>
+				 <input type="checkbox" id="favorite" value="<: $article.id :>" checked="<: $article.favorite ? 'checked' : '' :>"><i class="fa fa-star<: $article.favorite ? '' : '-o' :>"></i>
 			  </label>
 			</div>
 		</div>
 	</div>
 	<br />
-	<div class="container" id="content">
+	<div class="row" id="content">
+     <div>
 		<: $article.description | raw :>
+     </div>
 	</div>
 	<br />
 	<div class="row">

@@ -1,5 +1,5 @@
    <div class="container">
-		<h2><a href="/"><: $feed.name :></a> ( <: $feed.unread :> / <: $feed.count :> )</h2>
+		<h2><a href="/"><: $feed.name :></a> ( <: $feed.unread :> )</h2>
 	<div class="list-group">
 : for $articles -> $article {
 		<a class="list-group-item" href="/article/<: $article.id :>"><: $article.title :></a>

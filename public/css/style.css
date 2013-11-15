@@ -1,7 +1,6 @@
 body {
-  padding-top: 40px;
+  padding-top: 10px;
   padding-bottom: 40px;
-  background-color: #eee;
 }
 
 .form-signin {
@@ -39,7 +38,7 @@ body {
   border-top-right-radius: 0;
 }
 
-#lbl-fav i.icon-star {
+#lbl-fav i.fa-star {
 	color: orange;
 }
 
@@ -47,7 +46,7 @@ i.icon-refresh {
 	font-size: 1.375em;
 }
 
-a.feed {
+span.feed-refresh {
 	margin-left: 15px;
 	margin-right: 15px;
 }
@@ -63,8 +62,4 @@ div.nav, div.markings {
 #content img {
 	max-width: 100%;
 	height: auto;
-}
-
-body {
-	padding-top: 10px;
 }

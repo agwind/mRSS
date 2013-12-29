@@ -39,6 +39,8 @@ has_column 'link';
 
 has_column 'description';
 
+has_column 'orig_description';
+
 has_column 'issued' => (
 	isa => 'DateTime',
 );

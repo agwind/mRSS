@@ -103,6 +103,11 @@ __PACKAGE__->table("articles");
   default_value: false
   is_nullable: 0
 
+=head2 orig_description
+
+  data_type: 'text'
+  is_nullable: 1
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -133,6 +138,8 @@ __PACKAGE__->add_columns(
   { data_type => "timestamp with time zone", is_nullable => 1 },
   "favorite",
   { data_type => "boolean", default_value => \"false", is_nullable => 0 },
+  "orig_description",
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -188,8 +195,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-09-19 22:56:50
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pv3VRcFUTdteCD8aUYtGMQ
+# Created by DBIx::Class::Schema::Loader v0.07035 @ 2013-12-28 15:59:39
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KSEn7QtIHJe+sLHwgGZrIQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

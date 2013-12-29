@@ -1,52 +1,15 @@
-use Test::Most tests => 53, 'die';
+use Test::Most tests => 52, 'die';
 use Test::Deep;
 use strict;
 use warnings;
-use File::Temp;
+use lib qw{lib t/lib};
+use mRSS::Test::Base;
 
-use lib 'lib';
+my $t = mRSS::Test::Base->new();
 
-my $dbcfg = File::Temp->new( UNLINK => 1, SUFFIX=>'.conf');
-my $db = File::Temp->new( UNLINK => 1, SUFFIX=>'.db');
-
-my $conf = <<"HERE";
-schema_class mRSS::Schema
-
-lib lib/mRSS
-
- 
-# connection string
-<connect_info>
-  dsn     dbi:SQLite:dbname=$db
-  user    
-  pass    
-</connect_info>
- 
-# dbic loader options
-<loader_options>
-  components  InflateColumn::DateTime 
-  components  InflateColumn::DateTime::Duration
-  components  TimeStamp
-</loader_options>
-
-HERE
-
-print $dbcfg $conf;
-$dbcfg->flush;
-
-#TODO fix path issues
-
-$ENV{DB_CFG_FILE} = $dbcfg->filename;
-
-my $results = system("sqlite3 $db < sql/tables.sqlite.sql");
-my $exit_status = $results << 8;
-
-ok( $exit_status == 0, 'Creating Test Database');
-
-$results = system("export DB_CFG_FILE=$dbcfg; perl bin/import.pl t/import.xml");
-$exit_status = $results << 8;
-
-ok( $exit_status == 0, 'Running import script');
+$t->setup_db;
+$t->setup_cfg;
+$t->import_data;
 
 use_ok 'mRSS::ObjStorage';
 
@@ -81,8 +44,6 @@ is($feed->n_retrieved, 0, 'number of times we grabbed a feed');
 isa_ok($feed->created,'DateTime');
 is($feed->count, 0);
 is($feed->unread, 0);
-
-$ENV{TEST_FILE} = 't/rss20.xml';
 
 is($feed->retrieve, 2, 'Items in our test file');
 is($feed->n_retrieved, 1, 'Retrieved the articles 1 time');
@@ -122,7 +83,7 @@ is(scalar @articles,2, '2 articles returned from ->articles()');
 my $article = mRSS::Article->find({title => 'Test'});
 isa_ok($article, 'mRSS::Article', 'find returns an article');
 
-@methods = qw/find id feed title link description issued modified read favorite imported read_date/;
+@methods = qw/find id feed title link description orig_description issued modified read favorite imported read_date/;
 
 can_ok($article, @methods);
 
@@ -134,6 +95,9 @@ is($article->link, 'http://localhost/weblog/2004/05/test.html', 'Link is populat
 is($article->description, '<p>This is a test.</p>
 
 <p>Why don\'t you come down to our place for a coffee and a <strong>chat</strong>?</p>', 'Description is populated');
+is($article->orig_description, '<p>This is a test.</p>
+
+<p>Why don\'t you come down to our place for a coffee and a <strong>chat</strong>?</p>', 'Original description is populated');
 isa_ok($article->issued, 'DateTime', 'Got back a DateTime object for issued');
 is($article->issued->set_time_zone('UTC')->datetime, '2004-05-09T07:03:28', 'Issued is populated');
 is($article->modified, undef, 'Article does not hae modified attribute');

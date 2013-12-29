@@ -18,6 +18,7 @@ CREATE TABLE articles (
 	title varchar(255),
 	link text,
 	description text,
+	orig_description text,
 	imported timestamp with time zone,
 	read boolean DEFAULT false NOT NULL,
 	favorite boolean DEFAULT false NOT NULL,

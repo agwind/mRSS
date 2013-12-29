@@ -1,4 +1,4 @@
-
+adding a has_column to something not in the schema doeesn't throw an error
 Get Dependencies,manifests,etc sorted.
 Tests!!
 Separate config file for username/password (exposed if error in development env.).

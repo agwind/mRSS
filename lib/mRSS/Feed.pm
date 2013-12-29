@@ -9,6 +9,7 @@ use Moose -traits => 'mRSS::HasTable';
 use mRSS::MooseTable;
 use mRSS::Schema;
 use mRSS::Article;
+use mRSS::Scrub;
 use Carp qw/cluck/;
 
 our $schema;
@@ -146,13 +147,17 @@ sub retrieve {
 				feed => $self,
 				title => $item->title,
 				link => $item->link,
-				description => $item->content->body,
+				orig_description => $item->content->body,
 			};
 			if($item->modified) {
 				$article_hash->{modified} = $item->modified;
 			}
 			if($item->issued) {
 				$article_hash->{issued} = $item->issued;
+			}
+			my $parsed;
+			if ($parsed = mRSS::Scrub->scrub($article_hash->{orig_description})) {
+				$article_hash->{description} = $parsed;
 			}
 			eval {
 				$article = mRSS::Article->new($article_hash);

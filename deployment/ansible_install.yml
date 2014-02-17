@@ -7,16 +7,18 @@
       user: name=rss comment="Rss User"
 
     - name: Install perl bootstraping modules, build essentials
-      apt: name=$item state=latest
+      apt: name={{ item }} state=latest
       with_items:
        - liblocal-lib-perl
        - build-essential
       when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-    - name: Install perl bootstraping modules, build essentials
-      yum: name=$item state=latest
+    - name: Install perl local-lib
+      yum: name={{ item }} state=latest
       with_items:
-       - liblocal-lib-perl
-       - build-essential
+       - perl-local-lib
       when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
+    - name: Install development tools
+      yum: name="@Development tools" state=latest
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'

@@ -1,0 +1,22 @@
+---
+- hosts: all
+  remote_user: ec2-user
+  sudo: yes
+  tasks:
+    - name: Add the rss user
+      user: name=rss comment="Rss User"
+
+    - name: Install perl bootstraping modules, build essentials
+      apt: name=$item state=latest
+      with_items:
+       - liblocal-lib-perl
+       - build-essential
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: Install perl bootstraping modules, build essentials
+      yum: name=$item state=latest
+      with_items:
+       - liblocal-lib-perl
+       - build-essential
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+

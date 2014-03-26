@@ -1,3 +1,6 @@
+Errors out after a DB disconnect
+Fix navigation buttons on hires (nexus 7) displays
+Tablet view that has combined article list and reading pane
 adding a has_column to something not in the schema doeesn't throw an error
 Get Dependencies,manifests,etc sorted.
 Tests!!
@@ -10,6 +13,7 @@ Add/Update subscriptions
 Filters
 Stats/Analytics
 View all
+
 
 Carousel so we can preload next article
    - Mozilla brick?

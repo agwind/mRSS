@@ -1,13 +1,14 @@
 package mRSS::App;
 
-use Dancer ':syntax';
-use Dancer::Plugin::Ajax;
+use Dancer2;
+use Dancer2::Plugin::Ajax;
 #use Dancer::Plugin::NYTProf;
-use Text::Xslate qw/mark_raw/;
+#use Text::Xslate qw/mark_raw/;
 use mRSS::ObjStorage;
 use mRSS::Feed;
 use mRSS::Article;
 use mRSS::Cursor;
+use mRSS::API;
 
 our $VERSION = '0.1';
 
@@ -15,12 +16,17 @@ $mRSS::ObjStorage::conf = $ENV{DB_CFG_FILE} // config->{db_cfg_file};
 
 #TODO validate all input
 
-hook 'before' => sub {
-	if ( !session('user') && request->path_info !~ m{^/login} ) {
-		var requested_path => request->path_info;
-		request->path_info('/login');
-	}
-};
+#hook 'before' => sub {
+#	my $sess = session;
+	#debug $sess;
+	#debug request;
+#	if ( !session('user') && request->dispatch_path !~ m{^/login}) {
+#		var requested_path => request->dispatch_path;
+#		forward '/login', { requested_path => vars->{requested_path} };
+	#}
+#};
+
+prefix '/';
 
 get '/' => sub {
 	my @feeds = sort {$a->name cmp $b->name } mRSS::Feed->list;
@@ -52,13 +58,15 @@ get '/subs/:id' => sub {
 get '/article/:id' => sub {
 	my $article = mRSS::Article->find( params->{id} );
 	my $cursor = session $article->feed->id . '_cursor';
-	my $pos = $cursor->{index}->{$article->id};
 	my ($prev,$next);
-	if($pos > 0) {
-		$prev = $cursor->{items}->[$pos - 1];
-	}
-	if($pos < $cursor->{length} -1) {
-		$next = $cursor->{items}->[$pos + 1];
+	if(defined($cursor)) {
+		my $pos = $cursor->{index}->{$article->id};
+		if($pos > 0) {
+			$prev = $cursor->{items}->[$pos - 1];
+		}
+		if($pos < $cursor->{length} -1) {
+			$next = $cursor->{items}->[$pos + 1];
+		}
 	}
 	use DateTime::Format::Mail;
 	my $issued = DateTime::Format::Mail->format_datetime($article->issued);
@@ -104,7 +112,7 @@ ajax '/subs/:id/refresh' => sub {
 
 post '/login' => sub {
 	my $user = params->{username};
-	if (defined(config->{users}->{$user}) && 
+	if (defined(config->{users}->{$user}) &&
 		(config->{users}->{$user} eq params->{password})) {
 		session user => $user;
 		redirect '/';
